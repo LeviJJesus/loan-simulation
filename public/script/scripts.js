@@ -2,7 +2,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const loanForm = document.getElementById('loan-simulation-form');
     const cpfInput = document.getElementById('cpf');
     const resultDiv = document.getElementById('result');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('header nav ul');
+    const links = document.querySelectorAll('header nav ul li a');
 
+    // Função para exibir o resultado da simulação de empréstimo
     loanForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -87,12 +91,12 @@ document.addEventListener('DOMContentLoaded', function () {
     images[currentIndex].classList.add('active');
     setInterval(showNextImage, 3000); // Troca de imagem a cada 3 segundos
 
-    const links = document.querySelectorAll('header nav ul li a');
-
-    links.forEach(link => {
-        link.addEventListener('click', smoothScroll);
+    // Adiciona o evento de clique ao botão de menu para alternar a visibilidade do menu
+    menuToggle.addEventListener('click', function () {
+        navMenu.classList.toggle('active');
     });
 
+    // Função para rolagem suave
     function smoothScroll(e) {
         e.preventDefault();
 
@@ -108,4 +112,9 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     }
+
+    // Adiciona o evento de clique para rolagem suave aos links de navegação
+    links.forEach(link => {
+        link.addEventListener('click', smoothScroll);
+    });
 });

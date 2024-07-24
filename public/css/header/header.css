@@ -99,6 +99,20 @@ header nav ul li a:hover {
     transform: scale(1.1);
 }
 
+.menu-toggle {
+    display: none; /* Escondido por padrão */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #fff;
+    /* Adicione um padding se necessário para o botão */
+}
+
+.menu-icon::before {
+    content: "\2630"; /* Ícone de menu (três linhas horizontais) */
+}
+
 .banner {
     position: relative;
     text-align: center;
@@ -167,4 +181,48 @@ header nav ul li a:hover {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 2;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header .logo img {
+        height: 80px;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 10px;
+        display: none;
+    }
+
+    header nav ul.active {
+        display: flex;
+    }
+
+    header nav ul li a {
+        font-size: 16px;
+    }
+
+    .menu-toggle {
+        display: block; /* Mostra o botão de menu em dispositivos móveis */
+    }
+}
+
+@media (max-width: 480px) {
+    header .logo img {
+        height: 60px;
+    }
+
+    header nav ul li a {
+        font-size: 14px;
+    }
+
+    .banner h1 {
+        font-size: 24px;
+    }
 }
