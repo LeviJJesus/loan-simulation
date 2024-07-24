@@ -73,3 +73,45 @@ footer {
     background: var(--secondary-color);
     color: #fff;
 }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-container div {
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    .footer-social ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer-social ul li a {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-container h3 {
+        font-size: 1.5rem;
+    }
+
+    .footer-container p {
+        font-size: 0.9rem;
+    }
+
+    .footer-social ul li a {
+        width: 24px;
+        height: 24px;
+    }
+
+    .footer-bottom {
+        font-size: 0.9rem;
+    }
+}

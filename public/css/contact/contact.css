@@ -17,6 +17,7 @@
     margin-right: auto;
     margin-left: auto;
 }
+
 .contact {
     background-color: #f2f2f2;
     padding: 60px 0;
@@ -26,6 +27,7 @@
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
+    padding: 0 20px; /* Adiciona padding para evitar que o texto encoste nas bordas */
 }
 
 .contact h2 {
@@ -49,6 +51,7 @@
 .contact form input,
 .contact form textarea {
     width: 100%;
+    max-width: 500px; /* Define uma largura máxima para inputs e textarea */
     padding: 12px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
@@ -63,7 +66,7 @@
 
 .contact form button {
     padding: 12px 20px;
-    background-color: #4CAF50;
+    background-color: var(--secondary-color);
     color: white;
     border: none;
     border-radius: 4px;
@@ -74,4 +77,40 @@
 
 .contact form button:hover {
     background-color: #45a049;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .contact h2 {
+        font-size: 2rem; /* Reduz o tamanho da fonte para cabeçalhos em dispositivos menores */
+    }
+
+    .contact form label {
+        font-size: 1rem; /* Ajusta o tamanho da fonte para labels */
+    }
+
+    .contact form input,
+    .contact form textarea {
+        font-size: 0.9rem; /* Ajusta o tamanho da fonte para campos de entrada e textarea */
+    }
+
+    .contact form button {
+        font-size: 1rem; /* Ajusta o tamanho da fonte para o botão */
+    }
+}
+
+@media (max-width: 480px) {
+    .contact h2 {
+        font-size: 1.8rem; /* Ajusta ainda mais o tamanho da fonte para cabeçalhos em dispositivos muito pequenos */
+    }
+
+    .contact form input,
+    .contact form textarea {
+        padding: 10px; /* Ajusta o padding para campos de entrada e textarea em dispositivos menores */
+    }
+
+    .contact form button {
+        padding: 10px 15px; /* Ajusta o padding do botão */
+        font-size: 0.9rem; /* Ajusta o tamanho da fonte do botão */
+    }
 }
