@@ -13,7 +13,7 @@ document.getElementById('loan-simulation-form').addEventListener('submit', funct
     };
 
     // Verifique se está em produção ou desenvolvimento
-    const url = window.location.hostname === 'localhost' ? 'http://localhost:3000/send-email' : 'https://agricolaltda.vercel.app/send-email';
+    const url = window.location.hostname === 'localhost' ? 'http://localhost:3000/send-email' : 'https://loan-simulation.vercel.app/send-email';
 
     fetch(url, {
         method: 'POST',
