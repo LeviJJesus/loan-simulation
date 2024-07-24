@@ -2,18 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "loan-simulation/server.js",
+      "src": "server.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/send-email",
-      "dest": "/loan-simulation/server.js"
+      "dest": "server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/loan-simulation/public/$1"
+      "dest": "public/$1"
     }
   ]
 }
