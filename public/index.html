@@ -101,7 +101,7 @@
                     <input type="number" id="loan-amount" name="loan-amount" placeholder="Valor Desejado" required>
             
                     <label for="term">Prazo (em meses):</label>
-                    <input type="number" id="term" name="term" placeholder="12" required>
+                    <input type="number" id="term" name="term" placeholder="12" required max="360">
             
                     <div class="consent-checkboxes">
                         <input type="checkbox" id="offer-sms-whatsapp-email" name="offer-sms-whatsapp-email">
@@ -117,7 +117,8 @@
                     <button type="submit">Simular</button>
                 </form>
                 <div id="result"></div>
-            </div>
+            </div>            
+            
         </section>
         
         <section class="benefits">
@@ -167,20 +168,51 @@
         <section id="contato" class="contact">
             <div class="container">
                 <h2>Contato</h2>
-                <form id="contact-form">
+                <form id="contact-form" class="contact-form">
                     <label for="name">Nome:</label>
                     <input type="text" id="name" name="name" required>
-        
+                    
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>
-        
+                    
                     <label for="message">Mensagem:</label>
                     <textarea id="message" name="message" required></textarea>
-        
+                    
                     <button type="submit">Enviar</button>
                 </form>
+                <div id="contact-result"></div>
             </div>
         </section>
+        
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const contactForm = document.getElementById('contact-form');
+            const contactResult = document.getElementById('contact-result');
+        
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+        
+                const formData = new FormData(contactForm);
+        
+                fetch('/send-contact-email', {
+                    method: 'POST',
+                    body: JSON.stringify(Object.fromEntries(formData)),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    contactResult.innerHTML = data.message;
+                    contactForm.reset();
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    contactResult.innerHTML = 'Erro ao enviar a mensagem.';
+                });
+            });
+        });
+        </script>
 
         <footer>
             <div class="footer-container">
@@ -194,23 +226,23 @@
                     <p><strong>Email:</strong> contato@caagricola.com.br</p>
                     <p><strong>SAC:</strong> (11) 8765-4321</p>
                 </div>
-                <div class="footer-social">
+                <!-- <div class="footer-social">
                     <h3>Siga-nos</h3>
                     <ul>
                         <li><a href="#"><img class="icons-footer" src="./img/assets/icon/facebook.svg" alt="Facebook"></a></li>
                         <li><a href="#"><img class="icons-footer" src="./img/assets/icon/instagram.svg" alt="Instagram"></a></li>
                         <li><a href="#"><img class="icons-footer" src="./img/assets/icon/whatsapp.svg" alt="WhatsApp"></a></li>
-                        <!-- <li><a href="#"><img src="img/linkedin-icon.png" alt="LinkedIn"></a></li> -->
+                        <!-- <li><a href="#"><img src="img/linkedin-icon.png" alt="LinkedIn"></a></li> 
                     </ul>
-                </div>
+                </div> -->
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2024 C. A. AGRICOLA LTDA. Todos os direitos reservados.</p>
             </div>
         </footer>
-        
-        <script src="./script/loanSimulation.js"></script>
+
         <script src="./script/scripts.js"></script>
+        <script src="./script/loanSimulation.js"></script>
         <script>
     const url = window.location.hostname === 'localhost'
     ? 'http://localhost:3000/send-email'

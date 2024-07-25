@@ -13,14 +13,28 @@ document.addEventListener('DOMContentLoaded', function () {
         const amount = document.getElementById('loan-amount').value;
         const term = document.getElementById('term').value;
 
-        const interestRate = 0.05; // Taxa de juros de exemplo
-        const monthlyInterestRate = interestRate / 12;
-        const monthlyPayment = (amount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -term));
+        if (term > 360) {
+            alert('O prazo máximo permitido é de 360 meses.');
+            return;
+        }
 
-        resultDiv.innerHTML = `<h3>Resultado da Simulação</h3>
-                               <p>Valor do Empréstimo: R$ ${amount}</p>
-                               <p>Prazo: ${term} meses</p>
-                               <p>Pagamento Mensal: R$ ${monthlyPayment.toFixed(2)}</p>`;
+        // Exibe a mensagem de sucesso
+        resultDiv.innerHTML = `<p>Simulação enviada com sucesso!</p>`;
+
+        // Aguarda 2 segundos antes de exibir o resultado da simulação
+        setTimeout(function () {
+            const interestRate = 0.05; // Taxa de juros de exemplo
+            const monthlyInterestRate = interestRate / 12;
+            const monthlyPayment = (amount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -term));
+
+            resultDiv.innerHTML = `<h3>Resultado da Simulação</h3>
+                                   <p>Valor do Empréstimo: R$ ${amount}</p>
+                                   <p>Prazo: ${term} meses</p>
+                                   <p>Pagamento Mensal: R$ ${monthlyPayment.toFixed(2)}</p>`;
+
+            // Limpa o formulário
+            loanForm.reset();
+        }, 2000); // Aguarda 2 segundos (2000 milissegundos)
     });
 
     // Função para formatar o CPF

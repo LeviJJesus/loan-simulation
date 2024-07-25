@@ -12,32 +12,30 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
+
 app.post('/send-email', (req, res) => {
     const { cpf, fullName, email, loanAmount, term, offerSmsWhatsappEmail, offerDaycoval, offerPartners } = req.body;
-
-    const transporter = nodemailer.createTransport({
-        host: process.env.EMAIL_HOST,
-        port: process.env.EMAIL_PORT,
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        }
-    });
 
     const mailOptions = {
         from: email,
         to: process.env.EMAIL_RECEIVER,
         subject: 'Nova Simulação de Empréstimo',
-        text: `
-            CPF: ${cpf}
-            Nome Completo: ${fullName}
-            E-mail: ${email}
-            Valor do Empréstimo: R$${loanAmount}
-            Prazo: ${term} meses
-            Deseja receber ofertas por SMS, WhatsApp e e-mail: ${offerSmsWhatsappEmail ? 'Sim' : 'Não'}
-            Aceita as condições do Banco Daycoval: ${offerDaycoval ? 'Sim' : 'Não'}
-            Concorda em receber ofertas dos parceiros do Banco Daycoval: ${offerPartners ? 'Sim' : 'Não'}
-        `
+        text: `CPF: ${cpf}
+               Nome Completo: ${fullName}
+               E-mail: ${email}
+               Valor do Empréstimo: R$${loanAmount}
+               Prazo: ${term} meses
+               Deseja receber ofertas por SMS, WhatsApp e e-mail: ${offerSmsWhatsappEmail ? 'Sim' : 'Não'}
+               Aceita as condições do Banco Daycoval: ${offerDaycoval ? 'Sim' : 'Não'}
+               Concorda em receber ofertas dos parceiros do Banco Daycoval: ${offerPartners ? 'Sim' : 'Não'}`
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -49,7 +47,28 @@ app.post('/send-email', (req, res) => {
     });
 });
 
-app.get('*', (req, res) => {
+app.post('/send-contact-email', (req, res) => {
+    const { name, email, message } = req.body;
+
+    const contactMailOptions = {
+        from: email,
+        to: process.env.EMAIL_RECEIVER,
+        subject: 'Nova Mensagem de Contato',
+        text: `Nome: ${name}
+               E-mail: ${email}
+               Mensagem: ${message}`
+    };
+
+    transporter.sendMail(contactMailOptions, (error, info) => {
+        if (error) {
+            console.error('Erro ao enviar o e-mail:', error);
+            return res.status(500).json({ error: 'Erro ao enviar o e-mail' });
+        }
+        res.status(200).json({ message: 'Mensagem enviada com sucesso!' });
+    });
+});
+
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
