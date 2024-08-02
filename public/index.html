@@ -188,37 +188,7 @@
                 <div id="contact-result"></div>
             </div>
         </section>
-        
-        <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const contactForm = document.getElementById('contact-form');
-            const contactResult = document.getElementById('contact-result');
-        
-            contactForm.addEventListener('submit', function (e) {
-                e.preventDefault();
-        
-                const formData = new FormData(contactForm);
-        
-                fetch('/send-contact-email', {
-                    method: 'POST',
-                    body: JSON.stringify(Object.fromEntries(formData)),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    contactResult.innerHTML = data.message;
-                    contactForm.reset();
-                })
-                .catch(error => {
-                    console.error('Erro:', error);
-                    contactResult.innerHTML = 'Erro ao enviar a mensagem.';
-                });
-            });
-        });
-        </script>
-
+    
         <footer>
             <div class="footer-container">
                 <div class="footer-about">
@@ -227,7 +197,7 @@
                 </div>
                 <div class="footer-contact">
                     <h3>Contato</h3>
-                    <p><strong>Telefone:</strong> (45) 9154-3441</p>
+                    <p><strong>Telefone:</strong> (45) 99154-3441</p>
                     <p><strong>Email:</strong> cacreditoagricolaoficial@gmail.com</p>
                     <!-- <p><strong>SAC:</strong> (11) 8765-4321</p> -->
                 </div>
@@ -245,6 +215,10 @@
                 <p>&copy; 2024 Brasuca crédito agrícola Fácil LTDA. Todos os direitos reservados.</p>
             </div>
         </footer>
+
+        <a href="https://wa.me/554591543441" class="whatsapp-float" target="_blank">
+            <img src="./img/assets/icon/whatsapp.svg" alt="WhatsApp" />
+        </a>
 
         <script src="./script/scripts.js"></script>
         <script src="./script/loanSimulation.js"></script>
@@ -287,5 +261,34 @@ document.getElementById('loan-simulation-form').addEventListener('submit', funct
     });
 });
         </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const contactForm = document.getElementById('contact-form');
+                const contactResult = document.getElementById('contact-result');
+            
+                contactForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+            
+                    const formData = new FormData(contactForm);
+            
+                    fetch('/send-contact-email', {
+                        method: 'POST',
+                        body: JSON.stringify(Object.fromEntries(formData)),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        contactResult.innerHTML = data.message;
+                        contactForm.reset();
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        contactResult.innerHTML = 'Erro ao enviar a mensagem.';
+                    });
+                });
+            });
+            </script>
     </body>
 </html>
